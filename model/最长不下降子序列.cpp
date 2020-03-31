@@ -1,22 +1,44 @@
-#include<cstdio>
-int main(){
-	int n,a[10008]={0},ans[10008]={0},f,m=0;
-	scanf("%d",&n);
-	for(int i=1;i<=n;i++){
-		scanf("%d",&a[i]);
-	}
-	for(int i=1;i<=n;i++){
-		f=0;
-		for(int j=i-1;j>=1;j--){
-			if(a[i]>=a[j]){
-				if(ans[i]<ans[j]+1)ans[i]=ans[j]+1,f=1;
+#include <cstdio>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+int cmp(const int &a, const int &b)
+{
+	return a > b;
+}
+int mi[100005], s[100005], d2[100005], len2 = 1, ps = 1, n = 0, ans = 0, now = 0;
+int main()
+{
+	while (cin >> mi[++n]);
+	n--;
+	s[1] = mi[1];
+	d2[1] = mi[1];
+	for (int i = 2; i <= n; i++)
+	{
+		if (mi[i] <= s[ps])
+		{
+			ps++;
+			s[ps] = mi[i];
+		}
+		else
+		{
+			if (s[1] < mi[i])
+				s[1] = mi[i];
+			else
+			{
+				int p = upper_bound(s + 1, s + 1 + ps, mi[i], cmp) - s;
+				s[p] = mi[i];
 			}
 		}
-		if(f==0)ans[i]=1;
+		if (d2[len2] < mi[i])
+			d2[++len2] = mi[i];
+		else
+		{
+			int p2 = lower_bound(d2 + 1, d2 + 1 + len2, mi[i]) - d2;
+			d2[p2] = mi[i];
+		}
 	}
-	for(int i=1;i<=n;i++){
-		if(ans[i]>m)m=ans[i];
-	}
-	printf("%d",m);
+	printf("%d\n%d", ps, len2);
+
 	return 0;
-} 
+}
