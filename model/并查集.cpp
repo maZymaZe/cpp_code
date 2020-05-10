@@ -19,3 +19,36 @@ int main(){
     }
     return 0;
 }
+/*
+struct disjoint_set 
+{
+private:
+	int f[N + 10];
+	inline int father(int x)
+	{
+		int fa = x;
+		while(fa ^ f[fa])
+			fa = f[fa];
+		while(x ^ f[x])
+			f[x] = fa,x = f[x];
+		return fa;
+	}
+public:
+	disjoint_set()
+	{
+		for(register int i = 1;i <= N;++i)
+			f[i] = i;
+	}
+	inline void merge(int x,int y)
+	{
+		f[father(x)] = father(y);
+	}
+	inline bool sameset(int x,int y)
+	{
+		return father(x) == father(y);
+	}
+	inline bool isroot(int x)
+	{
+		return f[x] == x;
+	}
+} dsu;
