@@ -14,7 +14,7 @@ struct edge{
 }e[EMAX];
 struct cmp{
     bool operator()(pr a,pr b){
-        return a.d>b.d;
+        return a.d>b.d||(a.d==b.d&&a.p<b.p);
     }
 };
 priority_queue<pr,vector<pr>,cmp>  q;
